@@ -18,17 +18,17 @@ NuGet
 To install Suave, add the following to your
 [paket](https://github.com/fsprojects/Paket).dependencies:
 
-{% highlight dosbatch %}
+```dosbatch
 source https://nuget.org/api/v2
 nuget Suave
-{% endhighlight %}
+```
 
 Or you can use the legacy NuGet command line [Package Manager
 Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
 
-{% highlight dosbatch %}
+```dosbatch
 PM> Install-Package Suave
-{% endhighlight %}
+```
 
 The simplest possible application: Hello World!
 -----------------------------------------------
@@ -36,11 +36,11 @@ The simplest possible application: Hello World!
 The simplest Suave application is a simple HTTP server that greets all visitors
 with the string `"Hello World!"`
 
-{% highlight fsharp %}
+```fsharp
 open Suave
 
 startWebServer defaultConfig (Successful.OK "Hello World!")
-{% endhighlight %}
+```
 
 The above statement will start a web server on default port 8083 over HTTP.
 `startWebServer` takes a configuration record and the WebPart `(OK "Hello
