@@ -8,7 +8,7 @@ API
 HttpContext
 -----------
 
-{% highlight fsharp %}
+```fsharp
 type ErrorHandler = Exception -> String -> HttpContext -> HttpContext
 
 and HttpRuntime =
@@ -30,7 +30,7 @@ and ISessionProvider =
   abstract member Generate : TimeSpan * HttpContext -> string
   abstract member Validate : string * HttpContext -> bool
   abstract member Session<'a>  : string -> SessionStore<'a>
-{% endhighlight %}
+```
 
 Default-supported HTTP Verbs
 ----------------------------
@@ -39,7 +39,7 @@ See [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
 
 These applicatives match on HTTP verbs.
 
-{% highlight fsharp %}
+```fsharp
 let GET     (x : HttpRequest) = ``method`` "GET" x
 let POST    (x : HttpRequest) = ``method`` "POST" x
 let DELETE  (x : HttpRequest) = ``method`` "DELETE" x
@@ -49,14 +49,14 @@ let CONNECT (x : HttpRequest) = ``method`` "CONNECT" x
 let PATCH   (x : HttpRequest) = ``method`` "PATCH" x
 let TRACE   (x : HttpRequest) = ``method`` "TRACE" x
 let OPTIONS (x : HttpRequest) = ``method`` "OPTIONS" x
-{% endhighlight %}
+```
 
 Server configuration
 --------------------
 
 The first argument to `startWebServer` is a configuration record with the following signature.
 
-{% highlight fsharp %}
+```fsharp
 /// The core configuration of suave. See also Suave.Web.defaultConfig which
 /// you can use to bootstrap the configuration:
 /// <code>{ defaultConfig with bindings = [ ... ] }</code>
@@ -98,11 +98,11 @@ type SuaveConfig =
 
     /// A http session provider
     sessionProvider  : ISessionProvider }
-{% endhighlight %}
+```
 
 With `Protocol` , `HttpBinding` and `MimeType` defined like follows:
 
-{% highlight fsharp %}
+```fsharp
 type ITlsProvider =
   abstract member Wrap  : Connection -> SocketOp<Connection>
 
@@ -129,7 +129,7 @@ type MimeType =
     /// If the server will compress the file when clients ask for gzip or 
     /// deflate in the `Accept-Encoding` header
     compression  : bool }
-{% endhighlight %}
+```
 
 ## Overview
 
@@ -145,11 +145,11 @@ execute asynchronously, and it's not until it is evaluated that the async is
 evaluated. It will be evaluated on the same fibre (asynchronous execution
 context) that is consuming from the browser's TCP socket.
 
-{% highlight fsharp %}
+```fsharp
 type SuaveTask<'a> = Async<'a option>
 type WebPart = HttpContext -> SuaveTask<HttpContext>
 // hence: WebPart = HttpContext -> Async<HttpContext option>
-{% endhighlight %}
+```
 
 ### The ErrorHandler
 
@@ -157,10 +157,10 @@ An error handler takes the exception, a programmer-provided message, a request
 (that failed) and returns a web part for the handling of the
 error.
 
-{% highlight fsharp %}
+```fsharp
 /// An error handler takes the exception, a programmer-provided message, a
 /// request (that failed) and returns
 /// an asynchronous workflow for the handling of the error.
 type ErrorHandler = Exception -> String -> WebPart
-{% endhighlight %}
+```
 
